@@ -1,0 +1,413 @@
+HTML - content of a webpage
+CSS - for styling
+Bootstrap - Responsiveness + pre-defined components-table,carousel,modal,card
+Javascript - behaviour of a webpage
+
+
+Javascript
+==========
+-dynamically typed , Synchronous & single-threaded Programming Language.
+-dynamically typed means the types are checked, and datatype mismatches are spotted only at the runtime.
+-JavaScript engine executes code from top to bottom, line by line.In other words, it is synchronous.
+-JavaScript engine has only one 'call-stack' so that it only can do one thing at a time.
+
+-A JavaScript engine is a program or an interpreter which executes JavaScript code. 
+  
+
+javascript Engines:
+	V8  - is developed by Google , Google Chrome.
+	SpiderMonkey - is developed by Mozilla , Firefox.
+	JavaScriptCore  - is Apple's engine for its Safari browser. 
+	Chakra  - is the JavaScript engine of the Internet Explorer browser.
+
+
+
+
+Types
+------
+1. internal
+	a. <script></script>	
+	b. head or body
+	c. page level javascript
+	
+2. external
+	a. separate js file(needs to be included to html)
+		<script src='abc.js'></script>	
+	b. head or body
+	c. Application level/project level
+
+	
+Q. What is the best place to include js files? head/body?
+   
+
+
+Eliminate Render-Blocking JavaScript
+====================================
+-With HTML5, we got two new boolean attributes for the <script> tag : async and defer.
+ ex:- <script src='demo.js' async/defer></script>
+-async/defer attribute should only be used on external scripts, not with internal scripts.
+-These attributes only make sense while using the script in the head portion of the page.
+-A good strategy is to use async when possible, and then defer when async isn’t an option.
+-With async, the file gets downloaded asynchronously and then executed as soon as it’s downloaded.
+-With defer, the file gets downloaded asynchronously, but executed only when the document parsing is completed.
+-With defer, scripts will execute in the same order as they are called. 
+ defer is useful when a script depends on another script.
+ https://flaviocopes.com/javascript-async-defer/
+ 
+ 
+
+
+Javascript - is a programming language, follows ECMASCRIPT Standards.
+ECMA - European Computer Manufacturers Association.
+ECMASCRIPT -  is a standard for the scripting languages.
+
+
+
+	Javascript					 TypeScript
+---------------------------------------------------------
+1.strongly typed-No				1.strongly typed-yes
+2.directly run on browser		2.not directly run on the browser
+3.interface-No					3.interface - Yes
+4.optional parameters-No		4.optional parameters-yes
+5.interpreted language			5.compiles the code
+6.errors at runtime				6.errors during the development time
+7.generics-no					7.generics-yes
+
+
+
+	
+datatypes:
+=========
+-Types of data we are dealing with.
+-JavaScript provides different data types to hold different types of values.
+-two types of data types : 
+	1.primitive  	(number,string,boolean,undefined,null,symbol,bigInt)
+	2.Non-primitive (object references - Object)
+-difference between primitives and non-primitives is that primitives are immutable and 
+ non-primitives are mutable.
+	var str = 'This is a string.';
+	str[1] = 'H'
+	console.log(str); // 'This is a string.'
+-Mutable values are those which can be modified after creation.
+-Immutable values are those which cannot be modified after creation.
+-primitives are compared by values whereas non-primitives are compared by references.
+-primitive value will always be exactly equal to another primitive with an equivalent value.
+    const first = "abc" + "def";
+	const second = "ab" + "cd" + "ef";
+	console.log(first === second); // true
+-equivalent non-primitive values will not result in values which are exactly equal.
+    const obj1 = { name: "sanjay" };
+	const obj2 = { name: "sanjay" };
+	console.log(obj1 === obj2); // false
+-'typeof' is used to check datatype of a value.
+
+
+  Primitive							Non-primitive/Complex
+  --------------					-------------------------
+  1. number							1. Object (Object & Array)
+  2. string								
+  3. boolean(true,false)
+  4. undefined(undefined)
+  5. null
+  6. symbol(ES-6)
+  7. bigint (const x = 2n ** 53n;)
+     appending n to the end of an integer literal
+
+  
+	 
+null vs undefined
+------------------
+-undefined means "not initialized".it means a variable is declared but not initialized yet.
+-null means "the intentional absence of any object value". null is an assigned value. It means nothing.
+-A variable initialized with undefined means that the variable has no value or object assigned to it 
+ while null means that the variable has been set to an object whose value is undefined.
+-Both null and undefined are falsy values.
+-The JSON data format does not support undefined, supports only null;
+-JSON.stringify({a: undefined, b: null}) -->{"b":null}
+-even though typeof null === 'object', null is a still primitive value. 
+	ex: null == null;   //true
+
+
+1. when a variable is declared without a value, that variable by default will have undefined value 
+   a variable can be declared with a null value.
+	var a; 			//a=undefined
+	var b = null;  //b=null
+	
+2. typeof undefined; // undefined
+   typeof null; //object
+
+
+
+ var a = {}
+ var b = [] 
+ typeof a; //object
+ typeof b; //object
+ 
+ a instanceof Object; //true
+ b instanceof Object; //true
+ 
+ a instanceof Array; //false
+ b instanceof Array; //true
+ 
+ Array.isArray(a); //false
+ Array.isArray(b); //true
+
+
+Symbol 
+======
+-A 'symbol' represents a unique identifier.
+-Symbols are often used to add unique property keys to an object that won’t collide with keys.
+-create a symbol by calling the Symbol(), not by using new keyword.
+ let sym1 = Symbol()  // correct
+ let sym2 = new Symbol()  // TypeError
+-Even if we create many symbols with the same description, they are different values.
+ Symbol('foo') === Symbol('foo')  // false
+-Symbols allow us to create “hidden” properties of an object, 
+ that no other part of code can accidentally access or overwrite.
+-If we want to use a symbol in an object literal,we need square brackets around it.
+ let id = Symbol();
+ let user = {name:'sanjay',[id]:123}
+-Symbols are not enumerated,Symbols are skipped by for…in while we iterate object properties.
+-Symbols are not part of the Object.keys() or Object.getOwnPropertyNames()
+-Symbols assigned to an object can be accessed using the Object.getOwnPropertySymbols() method
+-Object.assign() copies both string and symbol properties.
+
+
+ 
+ 
+Type coercion/Type casting
+==========================
+-Type coercion is the automatic or implicit conversion of values from one data type to another (such as strings to numbers). 
+-Type conversion is similar to type coercion because they both convert values from one data type to another with one key difference 
+-type coercion is implicit whereas type conversion can be either implicit or explicit.
+
+Rules:
+-Primitives are coerced to string when using the binary + operator — 
+  if any operand is a string
+-Primitives are coerced to number when using comparison operators.
+	"5" >= 1   true
+-Primitives are coerced to number when using arithmetic operators (except for + when one operand is a string)
+	"5" - 1    4
+	"5" * 3    15
+-Primitives are coerced to number when using the unary + operator
+	+'123'   123
+	+true	 1
+	+null	 0
+	
+	
+ 
+ 
+ 
+Most Used methods in JS
+=======================
+window.alert()  -  window(Object), alert(function)
+document.write() - document(object), write(function)
+console.log()   -  console(object), log(function)
+
+window - alert(),confirm(),prompt(),setTimeout(),setInterval(),print(),open()
+document - write(),writeln(),getElementById(),querySelector()
+console - log(),error(),warn(),table(),dir(),trace(),time(),timeEnd(),group()
+
+ 
+N.p - while calling window object functions it is not necessary to call with object name;	
+	window.alert();  // correct
+	alert(); 		 // correct
+	this.alert();    // correct
+	
+	console.log() // Yes
+	log() // No
+	
+	document.write(); //yes
+	write(); //No
+	
+Note:- all window Object functions can be directly called.
+       default value of 'this' is 'window'
+ 
+
+
+How Javascript Works
+====================
+-When JavaScript engine executes a script, it creates N execution contexts.
+-execution context is the environment within which the current code is being executed.
+-Each execution context has two phases: 
+	1. creation phase. (Allocates memory - variables & functions and assign 'undefined' to variables)
+	2. execution phase. (Code gets Executed - assign values to variables & method invocation)
+-When a script executes for the first time,JavaScript engine creates a 'Global Execution Context' and pushes to callstack.
+-For every function call,JavaScript engine creates a new Function Execution Context and that gets added to callstack.
+
+https://www.youtube.com/watch?v=iLWTnMzWtj4&t=1044s
+https://www.jsv9000.app/
+
+ 
+ 
+Variables
+=========
+-Variables are containers for storing data values. 
+ Variable is a name of memory location.
+-Variables in Javascript can be declared by using either one of the below 3 keywords:
+ 1. var   
+ 2. let
+ 3. const
+
+	var						let						 const
+======================================================================
+1.since begining		 1.ECMASCRIPT-6(2015)		1.ECMASCRIPT-6(2015)
+2.value can be changed   2.value can be changed     2.cann't be changed
+3.initialization is		 3.initialization is		3.mandatory
+	not mandatory           not mandatory	
+4.can be redeclared		 4.cann't be redeclared		4.cann't be redeclared
+5.TDZ - No			 	 5.TDZ - Yes				5.TDZ - Yes
+6.function/global		 6.block/function/global	6.block/function/global
+
+N:p - All variables (var,let,const) are hoisted but only 'var' variables are usable/reachable before declaration.
+-let/const variables are not reachable/usable before declaration (Temporal Dead Zone)
+
+	
+Hoisting:
+=========
+-The process of assigning variable declarations a default value of 'undefined' during the creation phase is called Hoisting.
+-In hoisting, the variable and function declarations are put into memory during the	compile/creation phase before code execution phase.
+
+
+
+Temporal Dead Zone
+==================
+-The period between entering scope and being declared where they cannot be accessed. 
+ This period is the temporal dead zone (TDZ).
+-the state where variables are un-reachable. They are in memory, but they aren't usable.
+-The let and const variables exist in the TDZ from the start of their enclosing scope until they are declared.
+-if a let/const variable is accessed before its declaration, it would throw a ReferenceError. Because of the TDZ.
+
+
+
+What’s the difference between context and scope?
+=============================================== 
+-The context is (roughly) the object that calls the function. 
+-And the scope is all the variables visible to a function where it is defined. 
+-One cares about how it is called, the other cares about how it is defined.
+
+
+
+variable scope: 
+==============
+-Scope is a certain section/region of the program where a defined variable can have its existence and can be recognized, beyond that it can’t be accessed.
+-Scope determines the visibility and accessibility of a variable.
+-Every variable will have either 1 of the below 3 scopes.
+	1. global
+	2. function/Local
+	3. block
+	
+global scope:
+--------------
+-variables declared outside function.
+-these are accesible/visible throughout the script by any function.
+
+function:
+--------
+-declared inside a function/function arguements.
+-can be used only inside that function.
+
+block scope:
+------------
+-declared inside a block(if,else,try,catch)
+-visible only inside a block
+
+N.P-Scope of the variables declared without var/let/const become global irrespective of 
+    where it is declared.
+
+
+Scope chain
+===========
+-While resolving a variable, the block first  tries to find it within the own scope.
+-If the variable cannot be found in its own scope it will climb up the scope chain and look for the variable name in the environment where the function was defined.
+-If the variable cannot be found there, it will climb up the scope chain and will go till global scope to resolve the variable.
+ 
+ 
+
+Variable Shadowing
+==================
+-when a variable is declared in a certain scope having the same name defined on its
+ outer scope and when we call the variable from the inner scope, the value assigned to
+ the variable in the inner scope is the value that will be stored in the variable in 
+ the memory space. This is known as Shadowing.
+ 
+-while shadowing a variable, it should not cross the boundary of the scope, i.e. we can 
+ shadow var variable by let variable but cannot do the opposite. So, if we try to shadow 
+ let/const variable by var variable, it is known as Illegal Shadowing and it will give the error as “variable is already defined.” 
+ 
+
+
+Use Strict
+==========
+-provides better coding standard and stronger error checking.
+-'use strict' is only recognized at the beginning of a script or a function.
+-The purpose of "use strict" is to execute the javascript in "strict mode".
+-when 'use strict' is not written, browser runs the JS in normal mode.
+-when 'use strict' is  written, browser runs the JS in strict mode.
+-Strict mode changes some previously-accepted mistakes into errors.
+
+
+1. variable declaration without var/let/const is not allowed.
+   makes it impossible to accidentally create global variables.
+2. function with duplicate arguements are not allowed.
+3. NaN/undefined/Infinity cann't be used as a variable name.
+4. undeletable properties cann't be deleted. 
+    ex:delete Object.prototype; 
+	var x = 5; delete x;
+5. Multiple assignments not allowed.
+   var a = b = c = 3;
+6. 'this' is undefined, when a function is invoked from Global Context in strict mode.
+
+
+
+Comments
+========
+-it improves readability/understandability of a file.
+-single line comment  
+// single line comment   (ctrl + /)
+
+-multi line comment    ( Alt + Shift + a)
+/*
+line-1
+line-2
+line-3
+*/
+
+
+
+
+Operators
+=========
+1. arithmetic (+,-,*,/,%,**) /quotient %remainder **exponent
+2. Assignment (=,+=,-=,*=)
+3. Relational  (>,>=,<,<=,==,===,!=,!==)
+4. logical (&&,||,!)
+5. bitwise  (&,|,^,~)
+6. increment/decrement (++,--)
+7. miscelaneous (typeof,instanceof)
+
+
+No of operands
+---------------
+1. unary (1 operand)      ex: -5 , ++a
+2. binary (2 operands)    ex: a+b , x-y  
+3. ternary (3 operands)   ex: a>b ? a : b;
+    
+res = condition ? trueValue : falseValue;   
+
+
+== compares only the value, performs implicit type conversion. (equality)
+=== compares both value and datatype, no type conversion is performed.(Strict equality)
+
+Note: === (Strict equality) is faster as no type conversion is performed
+
+
+pre-increment(++a)
+post-increment(a++)
+
+pre-decrement(--a)
+post-decrement(a--)
+
+Q. using ternary operator find the greatest number amongst 3 numbers
+
+
